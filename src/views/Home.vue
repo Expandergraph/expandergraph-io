@@ -1,15 +1,19 @@
-<template>
-    <div></div>
-</template>
-
 <script>
 export default {
     data() {
         return {};
     },
     created() {},
+
     methods: {}
 };
 </script>
 
-<style lang="scss" scoped></style>
+
+<template>
+    <div>初始页面</div>
+</template>
+
+
+<style lang="scss" scoped>
+</style>
