@@ -1,5 +1,9 @@
 <script>
+import Adress from './Adress.vue';
 export default {
+    components: {
+        Adress
+    },
     data() {
         return {};
     },
@@ -8,6 +12,9 @@ export default {
     methods: {
         onSearch(value) {
             console.log(value);
+        },
+        callback(key) {
+            console.log(key);
         }
     }
 };
@@ -35,9 +42,18 @@ export default {
         </div>
         <div class="home-tab">
             <div class="left"></div>
+            <div class="right">
+                <a-tabs default-active-key="1" style="color: white; width: 100%" @change="callback">
+                    <a-tab-pane key="1" tab="地址概览"> <Adress></Adress></a-tab-pane>
+
+                    <a-tab-pane key="3" tab="交易详情"> Content of Tab Pane 3 </a-tab-pane>
+                </a-tabs>
+            </div>
+        </div>
+        <div class="home-content">
+            <div class="left"></div>
             <div class="right"></div>
         </div>
-        <div class="home-content">这是content</div>
     </div>
 </template>
 
@@ -94,11 +110,41 @@ export default {
     &-tab {
         height: 60px;
         border-bottom: 1px solid #133752;
+        display: flex;
         .left {
             width: 180px;
             height: 100%;
             background-color: white;
             border-right: 1px solid #133752;
+        }
+        .right {
+            width: 100%;
+            height: 100%;
+            /deep/ .ant-tabs-nav-animated {
+                height: 60px;
+            }
+            /deep/ .ant-tabs-bar {
+                border-bottom: 0px;
+            }
+        }
+    }
+    &-content {
+        width: 1560px;
+        // height: 100%;
+        // background-color: red;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        .left {
+            width: 500px;
+            height: 700px;
+
+            // background-color: red;
+        }
+        .right {
+            // width: 100%;
+            // background-color: red;
+            height: 700px;
         }
     }
 }
