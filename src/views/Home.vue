@@ -61,7 +61,7 @@ export default {
 <style lang="scss" scoped>
 .home {
     background-color: #001421;
-    height: 100vh;
+    height: 1200px;
     color: white;
     &-header {
         height: 60px;

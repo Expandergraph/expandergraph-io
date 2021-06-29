@@ -8,7 +8,7 @@ import "./assets/css/reset.css";
 
 // 外部引入
 import "ant-design-vue/dist/antd.css";
-import echarts from 'echarts'
+import * as echarts from 'echarts'
 
 Vue.prototype.$echarts = echarts
 
