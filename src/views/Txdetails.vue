@@ -1,34 +1,40 @@
 <script>
 const columns = [
     {
-        dataIndex: 'name',
-        key: 'name',
-        slots: { title: 'customTitle' },
-        scopedSlots: { customRender: 'name' }
-    },
-    {
-        title: 'Age',
+        title: '转账地址',
         dataIndex: 'age',
         key: 'age'
     },
     {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address'
+        title: '交易数',
+        dataIndex: 'address'
     },
     {
-        title: 'Tags',
-        key: 'tags',
-        dataIndex: 'tags',
-        scopedSlots: { customRender: 'tags' }
+        title: 'ETH交易总量',
+        dataIndex: 'address'
     },
     {
-        title: 'Action',
-        key: 'action',
-        scopedSlots: { customRender: 'action' }
+        title: 'ETH转出总量',
+        dataIndex: 'address'
+    },
+    {
+        title: 'ETH转入总量',
+        dataIndex: 'address'
+    },
+    {
+        title: '总交易数',
+        dataIndex: 'address'
+    },
+    {
+        title: '转入token交易数',
+        dataIndex: 'address'
+    },
+    {
+        title: '转出token交易数',
+        dataIndex: 'address'
     }
 ];
-const data = [
+const dataList = [
     {
         key: '1',
         name: 'John Brown',
@@ -58,8 +64,30 @@ export default {
             chartPie: null,
             total: 1000,
 
-            data,
-            columns
+            dataList,
+            columns,
+            list: [
+                {
+                    value: 100,
+                    name: 'Uniswap'
+                },
+                {
+                    value: 10,
+                    name: 'OKEx'
+                },
+                {
+                    value: 80,
+                    name: 'Sushiswap'
+                },
+                {
+                    value: 80,
+                    name: 'Huobi'
+                },
+                {
+                    value: 120,
+                    name: 'Binance'
+                }
+            ]
         };
     },
     mounted() {
@@ -237,7 +265,6 @@ export default {
             }
         },
         rowClassName(record, index) {
-            console.log(1111111);
             let className1 = 'c1';
             let className2 = 'c2';
 
@@ -263,7 +290,12 @@ export default {
             </div>
         </div>
         <div class="tx-bottom">
-            <a-table :columns="columns" :data-source="data" :rowClassName="rowClassName">
+            <a-table
+                :columns="columns"
+                :data-source="dataList"
+                :rowClassName="rowClassName"
+                :pagination="false"
+            >
                 <span slot="customTitle">Name</span>
                 <span slot="tags" slot-scope="tags"> </span>
                 <span slot="action" slot-scope="text, record">
