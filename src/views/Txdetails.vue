@@ -2,59 +2,53 @@
 const columns = [
     {
         title: '转账地址',
-        dataIndex: 'age',
-        key: 'age'
+        dataIndex: 'adress'
     },
     {
         title: '交易数',
-        dataIndex: 'address'
+
+        scopedSlots: { customRender: 'address' }
     },
     {
         title: 'ETH交易总量',
-        dataIndex: 'address'
+        scopedSlots: { customRender: 'address' }
     },
     {
         title: 'ETH转出总量',
-        dataIndex: 'address'
+        scopedSlots: { customRender: 'address' }
     },
     {
         title: 'ETH转入总量',
-        dataIndex: 'address'
+        scopedSlots: { customRender: 'address' }
     },
     {
         title: '总交易数',
-        dataIndex: 'address'
+        scopedSlots: { customRender: 'address' }
     },
     {
         title: '转入token交易数',
-        dataIndex: 'address'
+        scopedSlots: { customRender: 'address' }
     },
     {
         title: '转出token交易数',
-        dataIndex: 'address'
+        scopedSlots: { customRender: 'address' }
     }
 ];
 const dataList = [
     {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer']
+        address: 12
     },
     {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser']
+        address: 12
     },
     {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher']
+        address: 12
+    },
+    {
+        address: 12
+    },
+    {
+        address: 12
     }
 ];
 
@@ -296,15 +290,9 @@ export default {
                 :rowClassName="rowClassName"
                 :pagination="false"
             >
-                <span slot="customTitle">Name</span>
-                <span slot="tags" slot-scope="tags"> </span>
-                <span slot="action" slot-scope="text, record">
-                    <a>Invite 一 {{ record.name }}</a>
-                    <a-divider type="vertical" />
-                    <a>Delete</a>
-                    <a-divider type="vertical" />
-                    <a class="ant-dropdown-link"> More actions <a-icon type="down" /> </a>
-                </span>
+                <div slot="address" slot-scope="text, record">
+                    <a-progress :percent="30" size="small" strokeColor="#52BEDD" />
+                </div>
             </a-table>
         </div>
     </div>
@@ -350,6 +338,9 @@ export default {
     }
     /deep/.c2 {
         background-color: #00263c;
+        color: white;
+    }
+    /deep/.ant-progress-text {
         color: white;
     }
 }
