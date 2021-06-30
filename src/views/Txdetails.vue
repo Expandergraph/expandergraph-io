@@ -1,16 +1,65 @@
 <script>
+const columns = [
+    {
+        dataIndex: 'name',
+        key: 'name',
+        slots: { title: 'customTitle' },
+        scopedSlots: { customRender: 'name' }
+    },
+    {
+        title: 'Age',
+        dataIndex: 'age',
+        key: 'age'
+    },
+    {
+        title: 'Address',
+        dataIndex: 'address',
+        key: 'address'
+    },
+    {
+        title: 'Tags',
+        key: 'tags',
+        dataIndex: 'tags',
+        scopedSlots: { customRender: 'tags' }
+    },
+    {
+        title: 'Action',
+        key: 'action',
+        scopedSlots: { customRender: 'action' }
+    }
+];
+const data = [
+    {
+        key: '1',
+        name: 'John Brown',
+        age: 32,
+        address: 'New York No. 1 Lake Park',
+        tags: ['nice', 'developer']
+    },
+    {
+        key: '2',
+        name: 'Jim Green',
+        age: 42,
+        address: 'London No. 1 Lake Park',
+        tags: ['loser']
+    },
+    {
+        key: '3',
+        name: 'Joe Black',
+        age: 32,
+        address: 'Sidney No. 1 Lake Park',
+        tags: ['cool', 'teacher']
+    }
+];
+
 export default {
     data() {
         return {
             chartPie: null,
             total: 1000,
-            list: [
-                { value: 335, name: 'Uniswap' },
-                { value: 310, name: 'OKEx' },
-                { value: 234, name: 'Binance' },
-                { value: 135, name: 'Huobi' },
-                { value: 1548, name: 'Sushiswap' }
-            ]
+
+            data,
+            columns
         };
     },
     mounted() {
@@ -186,6 +235,17 @@ export default {
                 };
                 this.chartPie.setOption(option);
             }
+        },
+        rowClassName(record, index) {
+            console.log(1111111);
+            let className1 = 'c1';
+            let className2 = 'c2';
+
+            if (index % 2 === 1) {
+                return className1;
+            } else {
+                return className2;
+            }
         }
     }
 };
@@ -202,7 +262,19 @@ export default {
                 <div id="chartPie2" class="pie-wrap" style="width: 100%; height: 80%"></div>
             </div>
         </div>
-        <div class="tx-top"></div>
+        <div class="tx-bottom">
+            <a-table :columns="columns" :data-source="data" :rowClassName="rowClassName">
+                <span slot="customTitle">Name</span>
+                <span slot="tags" slot-scope="tags"> </span>
+                <span slot="action" slot-scope="text, record">
+                    <a>Invite 一 {{ record.name }}</a>
+                    <a-divider type="vertical" />
+                    <a>Delete</a>
+                    <a-divider type="vertical" />
+                    <a class="ant-dropdown-link"> More actions <a-icon type="down" /> </a>
+                </span>
+            </a-table>
+        </div>
     </div>
 </template>
 
@@ -225,6 +297,28 @@ export default {
             height: 400px;
             background-color: #001a2c;
         }
+    }
+    &-bottom {
+        width: 1700px;
+        height: 500px;
+        background-color: #001a2c;
+        margin-top: 20px;
+    }
+
+    /deep/.ant-table-thead > tr > th {
+        color: #86929d;
+        background: #00263c !important;
+    }
+    /deep/.ant-table-row:hover > td {
+        background: transparent !important;
+    }
+    /deep/.c1 {
+        background-color: #001a2c;
+        color: white;
+    }
+    /deep/.c2 {
+        background-color: #00263c;
+        color: white;
     }
 }
 </style>
