@@ -47,13 +47,13 @@ export default {
             <div class="left"></div>
             <div class="right">
                 <a-tabs
-                    default-active-key="1"
+                    default-active-key="2"
                     style="color: white; width: 1700px"
                     @change="callback"
                 >
                     <a-tab-pane key="1" tab="地址概览"> <Adress></Adress></a-tab-pane>
 
-                    <a-tab-pane key="3" tab="交易详情"> <TX></TX></a-tab-pane>
+                    <a-tab-pane key="2" tab="交易详情"> <TX></TX></a-tab-pane>
                 </a-tabs>
             </div>
         </div>
