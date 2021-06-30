@@ -6,7 +6,6 @@ const columns = [
     },
     {
         title: '交易数',
-
         scopedSlots: { customRender: 'address' }
     },
     {
@@ -57,7 +56,6 @@ export default {
         return {
             chartPie: null,
             total: 1000,
-
             dataList,
             columns,
             list: [
@@ -112,7 +110,6 @@ export default {
                         x: '50px',
                         y: '100px',
                         orient: 'vertical',
-
                         itemGap: 25,
                         textStyle: {
                             color: '#ffffff',
@@ -131,7 +128,7 @@ export default {
                                 }
                             }
                             let p = ((tarValue / total) * 100).toFixed(2);
-                            return name + ' ' + ' ' + p + '%';
+                            return name + p + '%';
                         }
                     },
                     series: [
