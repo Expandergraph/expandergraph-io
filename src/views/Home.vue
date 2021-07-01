@@ -2,12 +2,14 @@
 import Adress from './Adress.vue';
 import TX from './Txdetails.vue';
 import TokenInfo from './TokenInfo.vue';
+import HoldInfo from './HoldInfo.vue';
 
 export default {
     components: {
         Adress,
         TX,
-        TokenInfo
+        TokenInfo,
+        HoldInfo
     },
     data() {
         return {
@@ -66,13 +68,13 @@ export default {
             <div class="left"></div>
             <div class="right">
                 <a-tabs
-                    default-active-key="3"
+                    default-active-key="5"
                     style="color: white; width: 1700px"
                     @change="callback"
                 >
                     <a-tab-pane key="3" tab="基本信息"> <TokenInfo></TokenInfo></a-tab-pane>
                     <a-tab-pane key="4" tab="重要资讯"> <TX></TX></a-tab-pane>
-                    <a-tab-pane key="5" tab="市场持仓"> <Adress></Adress></a-tab-pane>
+                    <a-tab-pane key="5" tab="市场持仓"> <HoldInfo></HoldInfo></a-tab-pane>
                 </a-tabs>
             </div>
         </div>

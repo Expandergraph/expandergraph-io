@@ -5,9 +5,11 @@ export default {
         return {};
     },
     mounted() {
-        this.drawLine('myChart1');
-        this.drawLine('myChart2');
-        this.drawLine('myChart3');
+        this.$nextTick(() => {
+            this.drawLine('myChart1');
+            this.drawLine('myChart2');
+            this.drawLine('myChart3');
+        });
     },
     methods: {
         drawLine(id) {

@@ -1,19 +1,35 @@
 <script>
 const columns = [
     {
-        title: '交易所',
+        title: '转账地址',
         dataIndex: 'adress'
     },
     {
-        title: '余额',
+        title: '交易数',
         scopedSlots: { customRender: 'address' }
     },
     {
-        title: '变化量',
+        title: 'ETH交易总量',
         scopedSlots: { customRender: 'address' }
     },
     {
-        title: '首次交易时间',
+        title: 'ETH转出总量',
+        scopedSlots: { customRender: 'address' }
+    },
+    {
+        title: 'ETH转入总量',
+        scopedSlots: { customRender: 'address' }
+    },
+    {
+        title: '总交易数',
+        scopedSlots: { customRender: 'address' }
+    },
+    {
+        title: '转入token交易数',
+        scopedSlots: { customRender: 'address' }
+    },
+    {
+        title: '转出token交易数',
         scopedSlots: { customRender: 'address' }
     }
 ];
