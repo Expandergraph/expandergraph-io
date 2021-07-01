@@ -1,20 +1,25 @@
 <script>
 import Adress from './Adress.vue';
 import TX from './Txdetails.vue';
+import TokenInfo from './TokenInfo.vue';
 
 export default {
     components: {
         Adress,
-        TX
+        TX,
+        TokenInfo
     },
     data() {
-        return {};
+        return {
+            show: false
+        };
     },
     created() {},
 
     methods: {
         onSearch(value) {
             console.log(value);
+            this.show = !this.show;
         },
         callback(key) {
             console.log(key);
@@ -43,7 +48,7 @@ export default {
                 <div>退出登录</div>
             </div>
         </div>
-        <div class="home-tab">
+        <!-- <div class="home-tab">
             <div class="left"></div>
             <div class="right">
                 <a-tabs
@@ -54,6 +59,20 @@ export default {
                     <a-tab-pane key="1" tab="地址概览"> <Adress></Adress></a-tab-pane>
 
                     <a-tab-pane key="2" tab="交易详情"> <TX></TX></a-tab-pane>
+                </a-tabs>
+            </div>
+        </div> -->
+        <div class="home-tab">
+            <div class="left"></div>
+            <div class="right">
+                <a-tabs
+                    default-active-key="3"
+                    style="color: white; width: 1700px"
+                    @change="callback"
+                >
+                    <a-tab-pane key="3" tab="基本信息"> <TokenInfo></TokenInfo></a-tab-pane>
+                    <a-tab-pane key="4" tab="重要资讯"> <TX></TX></a-tab-pane>
+                    <a-tab-pane key="5" tab="市场持仓"> <Adress></Adress></a-tab-pane>
                 </a-tabs>
             </div>
         </div>
