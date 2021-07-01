@@ -1,7 +1,45 @@
 <script>
+const columns = [
+    {
+        title: '交易所',
+        dataIndex: 'adress'
+    },
+    {
+        title: '余额',
+        scopedSlots: { customRender: 'address' }
+    },
+    {
+        title: '变化量',
+        scopedSlots: { customRender: 'address' }
+    },
+    {
+        title: '首次交易时间',
+        scopedSlots: { customRender: 'address' }
+    }
+];
+const dataList = [
+    {
+        address: 12
+    },
+    {
+        address: 12
+    },
+    {
+        address: 12
+    },
+    {
+        address: 12
+    },
+    {
+        address: 12
+    }
+];
 export default {
     data() {
-        return {};
+        return {
+            columns,
+            dataList
+        };
     },
     mounted() {
         this.$nextTick(() => {
@@ -183,7 +221,18 @@ export default {
             <div class="left">
                 <div id="chartLine2" class="line-wrap" style="width: 100%; height: 450px"></div>
             </div>
-            <div class="right"></div>
+            <div class="right">
+                <a-table
+                    :columns="columns"
+                    :data-source="dataList"
+                    :rowClassName="rowClassName"
+                    :pagination="false"
+                >
+                    <div slot="address" slot-scope="text, record">
+                        <a-progress :percent="30" size="small" strokeColor="#52BEDD" />
+                    </div>
+                </a-table>
+            </div>
         </div>
     </div>
 </template>
@@ -227,6 +276,24 @@ export default {
             height: 450px;
             background-color: #001a2c;
         }
+    }
+    /deep/.ant-table-thead > tr > th {
+        color: #86929d;
+        background: #00263c !important;
+    }
+    /deep/.ant-table-row:hover > td {
+        background: transparent !important;
+    }
+    /deep/.c1 {
+        background-color: #001a2c;
+        color: white;
+    }
+    /deep/.c2 {
+        background-color: #00263c;
+        color: white;
+    }
+    /deep/.ant-progress-text {
+        color: white;
     }
 }
 </style>
