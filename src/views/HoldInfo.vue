@@ -6,6 +6,7 @@ export default {
     mounted() {
         this.$nextTick(() => {
             this.drawLine('myChart1');
+            this.drawLine('myChart2');
         });
     },
     methods: {
@@ -69,6 +70,75 @@ export default {
                 // 防止越界，重绘canvas
                 window.onresize = myChart.resize;
                 myChart.setOption(option); // 设置option
+            } else {
+                let option = {
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+
+                    calculable: true,
+                    title: {
+                        text: '持仓地址变化',
+                        x: '50px',
+                        textStyle: {
+                            color: 'white',
+                            fontSize: 12
+                        }
+                    },
+                    xAxis: [
+                        {
+                            // axisLabel: {
+                            //     rotate: 30,
+                            //     interval: 0
+                            // },
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#CECECE'
+                                }
+                            },
+                            type: 'category',
+                            boundaryGap: false,
+                            data: [2015, 2016, 2017, 2018, 2019, 2020, 2021]
+                            // data: (function () {
+                            //     let list = [];
+                            //     for (let i = 10; i <= 18; i++) {
+                            //         if (i <= 12) {
+                            //             list.push('2016-' + i + '-01');
+                            //         } else {
+                            //             list.push('2017-' + (i - 12) + '-01');
+                            //         }
+                            //     }
+                            //     return list;
+                            // })()
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value',
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#CECECE'
+                                }
+                            }
+                        }
+                    ],
+                    series: [
+                        {
+                            type: 'line',
+                            symbol: 'none',
+                            smooth: 0.2,
+                            color: ['#F6903D'],
+                            data: [1000, 10001, 10003, 20001, 4000, 5000, 60000],
+                            areaStyle: {
+                                normal: {
+                                    color: '#95562A'
+                                }
+                            }
+                        }
+                    ]
+                };
+                window.onresize = myChart.resize;
+                myChart.setOption(option); // 设置option
             }
         }
     }
@@ -81,7 +151,9 @@ export default {
         <div class="left">
             <div id="myChart1" style="width: 800px; height: 100%; margin-top: 20px"></div>
         </div>
-        <div class="right"></div>
+        <div class="right">
+            <div id="myChart2" style="width: 800px; height: 100%; margin-top: 20px"></div>
+        </div>
     </div>
 </template>
 
