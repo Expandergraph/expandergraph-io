@@ -1,8 +1,15 @@
 <script>
+import { labels, eth_balance } from '../request/api';
 export default {
-    name: '',
+    props: {
+        inputName: ''
+    },
+
     data() {
-        return {};
+        return {
+            labels: [],
+            eth_balance: ''
+        };
     },
     mounted() {
         this.$nextTick(() => {
@@ -12,6 +19,20 @@ export default {
         });
     },
     methods: {
+        getLabels() {
+            labels(this.inputName).then((res) => {
+                if (res.data) {
+                    this.labels = res.data;
+                }
+            });
+        },
+        geteth_balance() {
+            eth_balance(this.inputName).then((res) => {
+                console.log(res.data);
+                this.eth_balance = res.data;
+                console.log(this.eth_balance);
+            });
+        },
         drawLine(id) {
             let myChart = this.$echarts.init(document.getElementById(id));
             // 获取容器元素
@@ -169,13 +190,17 @@ export default {
         <div class="left">
             <div class="top">
                 <div style="font-size: 20px; margin-left: 20px; margin-top: 20px">地址标签</div>
-                <div style="font-size: 30px; margin-left: 20px; margin-top: 20px">
+                <div style="font-size: 30px; margin-left: 20px; margin-top: 20px; width: 50%">
                     NFT Collector
+                </div>
+                <div v-if="labels.length" style="margin-left: 20px; margin-top: 20px">
+                    {{ labels.toString() }}
                 </div>
             </div>
 
             <div class="mid">
                 <div style="font-size: 20px; margin-left: 20px; margin-top: 20px">余额</div>
+                <div>{{ eth_balance }}</div>
             </div>
             <div class="bottom"></div>
         </div>
@@ -183,20 +208,20 @@ export default {
             <div class="top">
                 <div
                     id="myChart1"
-                    :style="{ width: '1000px', height: '90%', marginTop: '40px' }"
+                    :style="{ width: '100%', height: '90%', marginTop: '40px' }"
                 ></div>
             </div>
             <div class="bottom">
                 <div class="left">
                     <div
                         id="myChart2"
-                        :style="{ width: '480px', height: '90%', marginTop: '10px' }"
+                        :style="{ width: '100%', height: '90%', marginTop: '10px' }"
                     ></div>
                 </div>
                 <div class="right">
                     <div
                         id="myChart3"
-                        :style="{ width: '480px', height: '90%', marginTop: '10px' }"
+                        :style="{ width: '100%', height: '90%', marginTop: '10px' }"
                     ></div>
                 </div>
             </div>
@@ -208,54 +233,57 @@ export default {
 
 <style lang="scss" scoped>
 .adress {
-    width: 90%;
+    width: 100%;
     height: 900px;
     display: flex;
     justify-content: space-between;
 
     .left {
-        width: 500px;
+        width: 50%;
         height: 100%;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-around;
         .top {
-            width: 480px;
+            width: 90%;
+
             height: 290px;
             background-color: #001a2c;
         }
         .mid {
-            width: 480px;
+            width: 90%;
+
             height: 160px;
             background-color: #001a2c;
         }
         .bottom {
-            width: 480px;
+            width: 90%;
+
             height: 350px;
             background-color: #001a2c;
         }
     }
     .right {
-        width: 1000px;
+        width: 100%;
         height: 100%;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         .top {
-            width: 1000px;
+            width: 95%;
             height: 440px;
             background-color: #001a2c;
         }
         .bottom {
-            width: 1000px;
+            width: 95%;
             height: 400px;
             display: flex;
             justify-content: space-between;
             .left,
             .right {
-                width: 480px;
-                height: 400px;
+                width: 50%;
+                height: 100%;
                 background-color: #001a2c;
             }
         }

@@ -1,26 +1,29 @@
 <script>
-import Adress from './Adress.vue';
+import Address from './Address.vue';
 import TX from './Txdetails.vue';
 import TokenInfo from './TokenInfo.vue';
 import HoldInfo from './HoldInfo.vue';
 
 export default {
     components: {
-        Adress,
+        Address,
         TX,
         TokenInfo,
         HoldInfo
     },
     data() {
         return {
-            show: false
+            show: false,
+            value: ''
         };
     },
     created() {},
 
     methods: {
         onSearch(value) {
-            console.log(value);
+            this.$refs.address.getLabels();
+            this.$refs.address.geteth_balance();
+
             this.show = !this.show;
         },
         callback(key) {
@@ -40,31 +43,30 @@ export default {
             <div class="left">我的钱包</div>
             <div class="right">
                 <a-input-search
+                    v-model="value"
                     placeholder="请输入地址/代币名称进行搜索"
                     enter-button
                     style="width: 660px"
                     @search="onSearch"
                 />
-                <div>帮助中心</div>
-                <div>我的钱包</div>
-                <div>退出登录</div>
+                <!-- <div>帮助中心</div> -->
+                <!-- <div>我的钱包</div> -->
+                <!-- <div>退出登录</div> -->
             </div>
         </div>
-        <!-- <div class="home-tab">
+        <div class="home-tab">
             <div class="left"></div>
             <div class="right">
-                <a-tabs
-                    default-active-key="2"
-                    style="color: white; width: 1700px"
-                    @change="callback"
-                >
-                    <a-tab-pane key="1" tab="地址概览"> <Adress></Adress></a-tab-pane>
+                <a-tabs default-active-key="1" style="color: white; width: 100%" @change="callback">
+                    <a-tab-pane key="1" tab="地址概览">
+                        <Address ref="address" :inputName="value"></Address
+                    ></a-tab-pane>
 
                     <a-tab-pane key="2" tab="交易详情"> <TX></TX></a-tab-pane>
                 </a-tabs>
             </div>
-        </div> -->
-        <div class="home-tab">
+        </div>
+        <!-- <div class="home-tab">
             <div class="left"></div>
             <div class="right">
                 <a-tabs
@@ -77,7 +79,7 @@ export default {
                     <a-tab-pane key="5" tab="市场持仓"> <HoldInfo></HoldInfo></a-tab-pane>
                 </a-tabs>
             </div>
-        </div>
+        </div> -->
         <div class="home-content">
             <div class="left"></div>
             <div class="right"></div>
@@ -90,6 +92,7 @@ export default {
 .home {
     background-color: #001421;
     height: 1200px;
+    width: 100%;
     color: white;
     &-header {
         height: 60px;
@@ -157,7 +160,7 @@ export default {
         }
     }
     &-content {
-        width: 1560px;
+        min-width: 100%;
         // height: 100%;
         // background-color: red;
         margin: 0 auto;

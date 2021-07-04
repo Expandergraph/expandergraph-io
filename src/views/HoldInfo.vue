@@ -56,7 +56,7 @@ export default {
                         },
                         {
                             name: '交易所',
-                            type: 'bar',
+                            type: 'bar',　
                             barWidth: 100,
                             itemStyle: {
                                 normal: {

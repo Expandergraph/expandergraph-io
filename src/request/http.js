@@ -10,6 +10,7 @@ import axios from "axios";
 //     axios.defaults.baseURL = "";
 // }
 
+axios.defaults.baseURL ='https://private-f7f12f4-xpander.apiary-mock.com'
 // 请求拦截器
 axios.interceptors.request.use(
     (config) => {
@@ -27,11 +28,11 @@ axios.interceptors.request.use(
 // 响应拦截器
 axios.interceptors.response.use(
     (response) => {
-        console.log("response", response);
+           return response;
     },
 
     (error) => {
-        console.log("error", error);
+        // console.log("error", error);
     },
 );
 
