@@ -29,6 +29,7 @@ export default {
             this.$refs.address.gettoken_balances();
             this.$refs.tx.getin_eth();
             this.$refs.tx.getout_eth();
+            this.$refs.tx.gettop_labels();
 
             this.show = !this.show;
         },

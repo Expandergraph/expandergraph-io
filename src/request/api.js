@@ -18,5 +18,8 @@ export const in_eth = (address) => get(`/address/${address}/in_eth`)
 
 export const out_eth = (address) => get(`/address/${address}/out_eth`)
 
+export const top_labels = (num_of_rows,offset) => get(`/top_labels/${num_of_rows}/${offset}`)
+
+
 
 

@@ -1,56 +1,40 @@
 <script>
-import { out_eth, in_eth } from '../request/api';
+import { out_eth, in_eth, top_labels } from '../request/api';
 const columns = [
     {
         title: '转账地址',
-        dataIndex: 'adress'
+        dataIndex: '# of Addrs'
     },
     {
         title: '交易数',
-        scopedSlots: { customRender: 'address' }
+        dataIndex: '# Txs'
     },
     {
         title: 'ETH交易总量',
-        scopedSlots: { customRender: 'address' }
+        scopedSlots: { customRender: 'ETH Vol' }
     },
     {
         title: 'ETH转出总量',
-        scopedSlots: { customRender: 'address' }
+        scopedSlots: { customRender: 'Vol Out(ETH)' }
     },
     {
         title: 'ETH转入总量',
-        scopedSlots: { customRender: 'address' }
+        scopedSlots: { customRender: 'Vol In(ETH)' }
     },
     {
-        title: '总交易数',
-        scopedSlots: { customRender: 'address' }
+        title: 'token总交易数',
+        scopedSlots: { customRender: '# of Token Txs' }
     },
     {
         title: '转入token交易数',
-        scopedSlots: { customRender: 'address' }
+        scopedSlots: { customRender: 'Txs In (Tokens)' }
     },
     {
         title: '转出token交易数',
-        scopedSlots: { customRender: 'address' }
+        scopedSlots: { customRender: 'Txs Out (Tokens)' }
     }
 ];
-const dataList = [
-    {
-        address: 12
-    },
-    {
-        address: 12
-    },
-    {
-        address: 12
-    },
-    {
-        address: 12
-    },
-    {
-        address: 12
-    }
-];
+const dataList = [];
 
 export default {
     props: {
@@ -78,6 +62,11 @@ export default {
         });
     },
     methods: {
+        gettop_labels() {
+            top_labels(10, 1).then((res) => {
+                this.dataList = eval(res.data);
+            });
+        },
         getout_eth() {
             out_eth(this.inputName).then((res) => {
                 let keyMap = {
@@ -336,8 +325,39 @@ export default {
                 :pagination="false"
                 style="width: 95%; margin: 0 auto"
             >
-                <div slot="address" slot-scope="text, record">
-                    <a-progress :percent="30" size="small" strokeColor="#52BEDD" />
+                <div slot="ETH Vol" slot-scope="text, record">
+                    <a-progress :percent="text['ETH Vol']" size="small" strokeColor="#52BEDD" />
+                </div>
+                <div slot="Vol Out(ETH)" slot-scope="text, record">
+                    <a-progress
+                        :percent="text['Vol Out(ETH)']"
+                        size="small"
+                        strokeColor="#52BEDD"
+                    />
+                </div>
+                <div slot="Vol In(ETH)" slot-scope="text, record">
+                    <a-progress :percent="text['Vol In(ETH)']" size="small" strokeColor="#52BEDD" />
+                </div>
+                <div slot="# of Token Txs" slot-scope="text, record">
+                    <a-progress
+                        :percent="text['# of Token Txs']"
+                        size="small"
+                        strokeColor="#52BEDD"
+                    />
+                </div>
+                <div slot="Txs Out (Tokens)" slot-scope="text, record">
+                    <a-progress
+                        :percent="text['Txs Out (Tokens)']"
+                        size="small"
+                        strokeColor="#52BEDD"
+                    />
+                </div>
+                <div slot="Txs In (Tokens)" slot-scope="text, record">
+                    <a-progress
+                        :percent="text['Txs In (Tokens)']"
+                        size="small"
+                        strokeColor="#52BEDD"
+                    />
                 </div>
             </a-table>
         </div>
@@ -373,6 +393,7 @@ export default {
         height: 500px;
         background-color: #001a2c;
         margin-top: 20px;
+        padding-top: 20px;
     }
 
     /deep/.ant-table-thead > tr > th {
