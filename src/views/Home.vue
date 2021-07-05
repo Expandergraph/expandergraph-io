@@ -15,7 +15,7 @@ export default {
     },
     data() {
         return {
-            show: '',
+            show: true,
             value: '',
             key: ''
         };
@@ -45,7 +45,6 @@ export default {
                     this.$refs.holdinfo.getnum_unique_addresses();
                 });
             } else if (this.key === '4') {
-                console.log(77777777777);
                 this.$nextTick(() => {
                     this.$refs.block.gettop_exchanges();
                 });
@@ -81,7 +80,6 @@ export default {
                     this.$refs.holdinfo.getnum_unique_addresses();
                 });
             } else if (this.key === '4') {
-                console.log(77777777777);
                 this.$nextTick(() => {
                     this.$refs.block.gettop_exchanges();
                 });
