@@ -1,5 +1,11 @@
 <script>
-import { labels, eth_balance, daily_activities } from '../request/api';
+import {
+    labels,
+    eth_balance,
+    daily_activities,
+    day_activities,
+    hour_activities
+} from '../request/api';
 export default {
     props: {
         inputName: ''
@@ -11,25 +17,36 @@ export default {
             eth_balance: '',
             totalTx: [],
             txDate: [],
-            txNum: []
+            txNum: [],
+            dayTx: [],
+            houerTx: []
         };
     },
-    mounted() {
-        this.$nextTick(() => {
-            this.drawLine('myChart2');
-            this.drawLine('myChart3');
-        });
-    },
+    mounted() {},
     methods: {
+        gethour_activities() {
+            hour_activities(this.inputName).then((res) => {
+                this.houerTx = res.data;
+                this.drawLine('myChart3');
+            });
+        },
+        getday_activities() {
+            day_activities(this.inputName).then((res) => {
+                this.dayTx = [];
+                this.dayTx = res.data;
+                this.drawLine('myChart2');
+            });
+        },
         getdaily_activities() {
             daily_activities(this.inputName).then((res) => {
                 this.totalTx = eval(res.data);
+                this.txDate = [];
+                this.txNum = [];
                 for (let m = 0; m < this.totalTx.length; m++) {
                     this.txDate.push(this.totalTx[m].date);
                     this.txNum.push(this.totalTx[m].transactions);
                     this.drawLine('myChart1');
                 }
-                console.log(this.totalTx);
             });
         },
         getLabels() {
@@ -105,7 +122,7 @@ export default {
                     },
                     series: [
                         {
-                            data: [120, 200, 150, 80, 70, 110, 130],
+                            data: this.dayTx,
                             type: 'bar',
                             barWidth: 30,
                             itemStyle: {
@@ -125,7 +142,7 @@ export default {
                         trigger: 'axis'
                     },
                     title: {
-                        text: '按天统计交易数',
+                        text: '按时统计交易数',
                         x: '30px',
                         textStyle: {
                             color: 'white',
@@ -165,10 +182,7 @@ export default {
                     },
                     series: [
                         {
-                            data: [
-                                120, 200, 150, 80, 70, 110, 130, 130, 130, 130, 130, 130, 130, 130,
-                                130, 130, 130, 230, 330, 230, 130, 500, 1100
-                            ],
+                            data: this.houerTx,
                             type: 'bar',
                             barWidth: 5,
                             itemStyle: {

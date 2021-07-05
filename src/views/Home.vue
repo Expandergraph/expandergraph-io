@@ -24,6 +24,8 @@ export default {
             this.$refs.address.getLabels();
             this.$refs.address.geteth_balance();
             this.$refs.address.getdaily_activities();
+            this.$refs.address.getday_activities();
+            this.$refs.address.gethour_activities();
 
             this.show = !this.show;
         },
