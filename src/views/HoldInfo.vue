@@ -1,7 +1,16 @@
 <script>
+import { seniority_distribution, num_unique_addresses } from '../request/api';
 export default {
+    props: {
+        inputName: ''
+    },
     data() {
-        return {};
+        return {
+            token: [],
+            address: [],
+            date: [],
+            num: []
+        };
     },
     mounted() {
         this.$nextTick(() => {
@@ -10,6 +19,30 @@ export default {
         });
     },
     methods: {
+        getseniority_distribution() {
+            seniority_distribution(this.inputName).then((res) => {
+                this.token = [];
+                this.address = [];
+                this.token.push(res.data['< 7 days'].tokens);
+                this.address.push(res.data['< 7 days'].addresses);
+
+                this.token.push(res.data['7-30 days'].tokens);
+                this.address.push(res.data['7-30 days'].addresses);
+                this.drawLine('myChart1');
+            });
+        },
+        getnum_unique_addresses() {
+            num_unique_addresses(this.inputName).then((res) => {
+                this.date = [];
+                this.num = [];
+                for (let p = 0; p < res.data.length; p++) {
+                    this.date.push(res.data[p].date);
+                    this.num.push(res.data[p].addresses);
+                }
+                console.log(this.num);
+                this.drawLine('myChart2');
+            });
+        },
         drawLine(id) {
             let myChart = this.$echarts.init(document.getElementById(id));
             // 获取容器元素
@@ -36,7 +69,7 @@ export default {
                     },
                     xAxis: {
                         type: 'category',
-                        data: ['7天以内', '7-30天']
+                        data: ['< 7 days', '7-30 days']
                     },
                     yAxis: {
                         type: 'value'
@@ -52,18 +85,18 @@ export default {
                                     color: '#5A77F8'
                                 }
                             },
-                            data: [200, 100]
+                            data: this.token
                         },
                         {
                             name: '交易所',
-                            type: 'bar',　
+                            type: 'bar',
                             barWidth: 100,
                             itemStyle: {
                                 normal: {
                                     color: '#4DD2C9'
                                 }
                             },
-                            data: [300, 400]
+                            data: this.address
                         }
                     ]
                 };
@@ -98,7 +131,7 @@ export default {
                             },
                             type: 'category',
                             boundaryGap: false,
-                            data: [2015, 2016, 2017, 2018, 2019, 2020, 2021]
+                            data: this.date
                             // data: (function () {
                             //     let list = [];
                             //     for (let i = 10; i <= 18; i++) {
@@ -128,7 +161,7 @@ export default {
                             symbol: 'none',
                             smooth: 0.2,
                             color: ['#F6903D'],
-                            data: [1000, 10001, 10003, 20001, 4000, 5000, 60000],
+                            data: this.address,
                             areaStyle: {
                                 normal: {
                                     color: '#95562A'
@@ -163,6 +196,7 @@ export default {
 .hold {
     width: 1650px;
     height: 500px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     .left,

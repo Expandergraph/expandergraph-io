@@ -31,6 +31,12 @@ export const volume_on_exchanges = (token) => get(`/token/${token}/volume_on_exc
 
 export const top_exchanges = (token) => get(`/token/${token}/top_exchanges`)
 
+export const seniority_distribution = (token) => get(`/token/${token}/seniority_distribution`)
+
+export const num_unique_addresses = (token) => get(`/token/${token}/num_unique_addresses`)
+
+
+
 
 
 

@@ -14,7 +14,8 @@ export default {
     data() {
         return {
             show: false,
-            value: '0x1B8A267e424E7beAE1B345EF475B149d7e6D36E3'
+            value: '0x1B8A267e424E7beAE1B345EF475B149d7e6D36E3',
+            key: ''
         };
     },
     created() {},
@@ -30,15 +31,29 @@ export default {
             // this.$refs.tx.getin_eth();
             // this.$refs.tx.getout_eth();
             // this.$refs.tx.gettop_labels();
-            this.$refs.tokeninfo.getexchange_supply_ratio();
-            this.$refs.tokeninfo.gettxs_num();
-            this.$refs.tokeninfo.getvolume_on_exchanges();
-            this.$refs.tokeninfo.gettop_exchanges();
+            if (this.key == '3') {
+                this.$refs.tokeninfo.getexchange_supply_ratio();
+                this.$refs.tokeninfo.gettxs_num();
+                this.$refs.tokeninfo.getvolume_on_exchanges();
+                this.$refs.tokeninfo.gettop_exchanges();
+            } else if (this.key == '5') {
+                this.$refs.holdinfo.getseniority_distribution();
+                this.$refs.holdinfo.getnum_unique_addresses();
+            }
 
             this.show = !this.show;
         },
         callback(key) {
-            console.log(key);
+            this.key = key;
+            if (this.key == '3') {
+                this.$refs.tokeninfo.getexchange_supply_ratio();
+                this.$refs.tokeninfo.gettxs_num();
+                this.$refs.tokeninfo.getvolume_on_exchanges();
+                this.$refs.tokeninfo.gettop_exchanges();
+            } else if (this.key == '5') {
+                this.$refs.holdinfo.getseniority_distribution();
+                this.$refs.holdinfo.getnum_unique_addresses();
+            }
         }
     }
 };
@@ -81,12 +96,14 @@ export default {
         <div class="home-tab">
             <!-- <div class="left"></div> -->
             <div class="right">
-                <a-tabs default-active-key="3" style="color: white; width: 100%" @change="callback">
+                <a-tabs default-active-key="5" style="color: white; width: 100%" @change="callback">
                     <a-tab-pane key="3" tab="基本信息">
                         <TokenInfo ref="tokeninfo" :inputName="value"></TokenInfo
                     ></a-tab-pane>
                     <a-tab-pane key="4" tab="重要资讯"> <TX></TX></a-tab-pane>
-                    <a-tab-pane key="5" tab="市场持仓"> <HoldInfo></HoldInfo></a-tab-pane>
+                    <a-tab-pane key="5" tab="市场持仓">
+                        <HoldInfo ref="holdinfo" :inputName="value"></HoldInfo
+                    ></a-tab-pane>
                 </a-tabs>
             </div>
         </div>
