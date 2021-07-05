@@ -1,5 +1,5 @@
 <script>
-import { labels, eth_balance } from '../request/api';
+import { labels, eth_balance, daily_activities } from '../request/api';
 export default {
     props: {
         inputName: ''
@@ -8,17 +8,30 @@ export default {
     data() {
         return {
             labels: [],
-            eth_balance: ''
+            eth_balance: '',
+            totalTx: [],
+            txDate: [],
+            txNum: []
         };
     },
     mounted() {
         this.$nextTick(() => {
-            this.drawLine('myChart1');
             this.drawLine('myChart2');
             this.drawLine('myChart3');
         });
     },
     methods: {
+        getdaily_activities() {
+            daily_activities(this.inputName).then((res) => {
+                this.totalTx = eval(res.data);
+                for (let m = 0; m < this.totalTx.length; m++) {
+                    this.txDate.push(this.totalTx[m].date);
+                    this.txNum.push(this.totalTx[m].transactions);
+                    this.drawLine('myChart1');
+                }
+                console.log(this.totalTx);
+            });
+        },
         getLabels() {
             labels(this.inputName).then((res) => {
                 if (res.data) {
@@ -28,9 +41,7 @@ export default {
         },
         geteth_balance() {
             eth_balance(this.inputName).then((res) => {
-                console.log(res.data);
                 this.eth_balance = res.data;
-                console.log(this.eth_balance);
             });
         },
         drawLine(id) {
@@ -51,22 +62,14 @@ export default {
                     },
                     xAxis: {
                         type: 'category',
-                        data: [
-                            '2020 - 5 - 1',
-                            '2020 - 5 - 1',
-                            '2020 - 5 - 1',
-                            '2020 - 5 - 1',
-                            '2020 - 5 - 1',
-                            '2020 - 5 - 1',
-                            '2020 - 5 - 1'
-                        ]
+                        data: this.txDate
                     },
                     yAxis: {
                         type: 'value'
                     },
                     series: [
                         {
-                            data: [120, 200, 150, 80, 70, 110, 130],
+                            data: this.txNum,
                             type: 'bar',
                             barWidth: 30,
                             itemStyle: {

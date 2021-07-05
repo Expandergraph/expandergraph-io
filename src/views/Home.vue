@@ -23,6 +23,7 @@ export default {
         onSearch(value) {
             this.$refs.address.getLabels();
             this.$refs.address.geteth_balance();
+            this.$refs.address.getdaily_activities();
 
             this.show = !this.show;
         },
