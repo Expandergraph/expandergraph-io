@@ -248,7 +248,7 @@ export default {
 
             <div class="mid">
                 <div style="font-size: 20px; margin-left: 20px; margin-top: 20px">余额</div>
-                <div>{{ eth_balance }}</div>
+                <div style="margin-top: 20px; margin-left: 20px">0.1 ETH</div>
             </div>
             <div class="bottom">
                 <div style="margin-top: 20px; margin-left: 20px">名资产持仓量</div>
