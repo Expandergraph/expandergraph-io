@@ -1,10 +1,22 @@
 <script>
+const columns = [
+    {
+        title: '名称',
+        dataIndex: 'token'
+    },
+    {
+        title: '持仓量',
+        dataIndex: 'balance'
+    }
+];
+const dataList = [];
 import {
     labels,
     eth_balance,
     daily_activities,
     day_activities,
-    hour_activities
+    hour_activities,
+    token_balances
 } from '../request/api';
 export default {
     props: {
@@ -19,11 +31,29 @@ export default {
             txDate: [],
             txNum: [],
             dayTx: [],
-            houerTx: []
+            houerTx: [],
+            columns,
+            dataList
         };
     },
     mounted() {},
     methods: {
+        rowClassName(record, index) {
+            let className1 = 'c1';
+            let className2 = 'c2';
+
+            if (index % 2 === 1) {
+                return className1;
+            } else {
+                return className2;
+            }
+        },
+        gettoken_balances() {
+            token_balances(this.inputName).then((res) => {
+                console.log(res);
+                this.dataList = res.data;
+            });
+        },
         gethour_activities() {
             hour_activities(this.inputName).then((res) => {
                 this.houerTx = res.data;
@@ -58,7 +88,9 @@ export default {
         },
         geteth_balance() {
             eth_balance(this.inputName).then((res) => {
-                this.eth_balance = res.data;
+                console.log(typeof res.data);
+                this.eth_balance = res.data['balance'];
+                console.log(this.eth_balance);
             });
         },
         drawLine(id) {
@@ -219,7 +251,17 @@ export default {
                 <div style="font-size: 20px; margin-left: 20px; margin-top: 20px">余额</div>
                 <div>{{ eth_balance }}</div>
             </div>
-            <div class="bottom"></div>
+            <div class="bottom">
+                <div style="margin-top: 20px; margin-left: 20px">名资产持仓量</div>
+                <a-table
+                    :columns="columns"
+                    :data-source="dataList"
+                    :rowClassName="rowClassName"
+                    :pagination="false"
+                    style="width: 95%; margin: 0 auto; margin-top: 10px"
+                >
+                </a-table>
+            </div>
         </div>
         <div class="right">
             <div class="top">
@@ -304,6 +346,24 @@ export default {
                 background-color: #001a2c;
             }
         }
+    }
+    /deep/.ant-table-thead > tr > th {
+        color: #86929d;
+        background: #00263c !important;
+    }
+    /deep/.ant-table-row:hover > td {
+        background: transparent !important;
+    }
+    /deep/.c1 {
+        background-color: #001a2c;
+        color: white;
+    }
+    /deep/.c2 {
+        background-color: #00263c;
+        color: white;
+    }
+    /deep/.ant-progress-text {
+        color: white;
     }
 }
 </style>

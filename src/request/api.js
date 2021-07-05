@@ -9,3 +9,7 @@ export const daily_activities = (address) => get(`/address/${address}/daily_acti
 export const day_activities = (address) => get(`/address/${address}/day_activities/7`);
 
 export const hour_activities = (address) => get(`/address/${address}/hour_activities/24`)
+
+
+export const token_balances = (address) => get(`/address/${address}/token_balances`)
+

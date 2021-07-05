@@ -14,7 +14,7 @@ export default {
     data() {
         return {
             show: false,
-            value: ''
+            value: '0x1B8A267e424E7beAE1B345EF475B149d7e6D36E3'
         };
     },
     created() {},
@@ -26,6 +26,7 @@ export default {
             this.$refs.address.getdaily_activities();
             this.$refs.address.getday_activities();
             this.$refs.address.gethour_activities();
+            this.$refs.address.gettoken_balances();
 
             this.show = !this.show;
         },
