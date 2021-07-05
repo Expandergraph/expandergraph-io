@@ -1,23 +1,24 @@
-# admin
+
+
+expandergraph-io前端项目
+
+该项目建议在1920*1080分辨率，100%缩放比例下观看，效果最佳
+
+## 项目使用简介
 
 ```
-后台管理简单模板
+该项目是以搜索框为入口，输入40位16进制的字符串是地址查询，对应的是地址信息，菜单栏包括（地址概览和交易详情）
+输入其他字符串是代币查询，菜单栏包括（基本信息，大额交易和市场持仓）
 ```
 
-## Project setup
+### 项目运行命令
 
 ```
-yarn install
+npm run serve
 ```
 
-### Compiles and hot-reloads for development
+### 项目打包命令
 
 ```
-yarn serve
-```
-
-### Compiles and minifies for production
-
-```
-yarn build
+npm run build
 ```
