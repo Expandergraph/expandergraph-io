@@ -68,12 +68,14 @@ export default {
         },
         getdaily_activities() {
             daily_activities(this.inputName).then((res) => {
+                console.log(res);
                 this.totalTx = eval(res.data);
                 this.txDate = [];
                 this.txNum = [];
                 for (let m = 0; m < this.totalTx.length; m++) {
                     this.txDate.push(this.totalTx[m].date);
                     this.txNum.push(this.totalTx[m].transactions);
+                    console.log(8888888);
                     this.drawLine('myChart1');
                 }
             });

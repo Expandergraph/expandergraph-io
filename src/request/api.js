@@ -3,7 +3,7 @@ import {get} from './http'
 export const labels = (address) => get(`/address/${address}/labels`);
 export const eth_balance = (address) => get(`/address/${address}/eth_balance`);
 
-export const daily_activities = (address) => get(`/address/${address}/daily_activities/7`);
+export const daily_activities = (address) => get(`/address/${address}/daily_activities`);
 
 
 export const day_activities = (address) => get(`/address/${address}/day_activities/7`);
@@ -34,6 +34,12 @@ export const top_exchanges = (token) => get(`/token/${token}/top_exchanges`)
 export const seniority_distribution = (token) => get(`/token/${token}/seniority_distribution`)
 
 export const num_unique_addresses = (token) => get(`/token/${token}/num_unique_addresses`)
+
+export const top_transactions = (token) => get(`/token/${token}/top_transactions`)
+
+export const top_balances = (token) => get(`/token/${token}/top_balances`)
+
+
 
 
 

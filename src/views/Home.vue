@@ -3,9 +3,11 @@ import Address from './Address.vue';
 import TX from './Txdetails.vue';
 import TokenInfo from './TokenInfo.vue';
 import HoldInfo from './HoldInfo.vue';
+import Block from './BlockTx.vue';
 
 export default {
     components: {
+        Block,
         Address,
         TX,
         TokenInfo,
@@ -13,8 +15,8 @@ export default {
     },
     data() {
         return {
-            show: false,
-            value: '0x1B8A267e424E7beAE1B345EF475B149d7e6D36E3',
+            show: '',
+            value: '',
             key: ''
         };
     },
@@ -22,37 +24,80 @@ export default {
 
     methods: {
         onSearch(value) {
-            // this.$refs.address.getLabels();
-            // this.$refs.address.geteth_balance();
-            // this.$refs.address.getdaily_activities();
-            // this.$refs.address.getday_activities();
-            // this.$refs.address.gethour_activities();
-            // this.$refs.address.gettoken_balances();
-            // this.$refs.tx.getin_eth();
-            // this.$refs.tx.getout_eth();
-            // this.$refs.tx.gettop_labels();
-            if (this.key == '3') {
-                this.$refs.tokeninfo.getexchange_supply_ratio();
-                this.$refs.tokeninfo.gettxs_num();
-                this.$refs.tokeninfo.getvolume_on_exchanges();
-                this.$refs.tokeninfo.gettop_exchanges();
-            } else if (this.key == '5') {
-                this.$refs.holdinfo.getseniority_distribution();
-                this.$refs.holdinfo.getnum_unique_addresses();
+            if (value.length >= 40) {
+                this.show = true;
+                this.key = '1';
+            } else {
+                this.show = false;
+                this.key = '3';
             }
+            if (this.key === '3') {
+                this.$nextTick(() => {
+                    this.$refs.tokeninfo.gettop_exchanges();
 
-            this.show = !this.show;
+                    this.$refs.tokeninfo.getexchange_supply_ratio();
+                    this.$refs.tokeninfo.gettxs_num();
+                    this.$refs.tokeninfo.getvolume_on_exchanges();
+                });
+            } else if (this.key === '5') {
+                this.$nextTick(() => {
+                    this.$refs.holdinfo.getseniority_distribution();
+                    this.$refs.holdinfo.getnum_unique_addresses();
+                });
+            } else if (this.key === '4') {
+                console.log(77777777777);
+                this.$nextTick(() => {
+                    this.$refs.block.gettop_exchanges();
+                });
+            } else if (this.key === '1') {
+                this.$refs.address.getLabels();
+                this.$refs.address.geteth_balance();
+                this.$refs.address.getdaily_activities();
+                this.$refs.address.getday_activities();
+                this.$refs.address.gethour_activities();
+                this.$refs.address.gettoken_balances();
+            } else if (this.key === '2') {
+                this.$nextTick(() => {
+                    this.$refs.tx.getin_eth();
+                    this.$refs.tx.getout_eth();
+                    this.$refs.tx.gettop_labels();
+                });
+            }
         },
         callback(key) {
             this.key = key;
-            if (this.key == '3') {
-                this.$refs.tokeninfo.getexchange_supply_ratio();
-                this.$refs.tokeninfo.gettxs_num();
-                this.$refs.tokeninfo.getvolume_on_exchanges();
-                this.$refs.tokeninfo.gettop_exchanges();
-            } else if (this.key == '5') {
-                this.$refs.holdinfo.getseniority_distribution();
-                this.$refs.holdinfo.getnum_unique_addresses();
+
+            if (this.key === '3') {
+                this.$nextTick(() => {
+                    this.$refs.tokeninfo.gettop_exchanges();
+
+                    this.$refs.tokeninfo.getexchange_supply_ratio();
+                    this.$refs.tokeninfo.gettxs_num();
+                    this.$refs.tokeninfo.getvolume_on_exchanges();
+                });
+            } else if (this.key === '5') {
+                this.$nextTick(() => {
+                    this.$refs.holdinfo.getseniority_distribution();
+                    this.$refs.holdinfo.getnum_unique_addresses();
+                });
+            } else if (this.key === '4') {
+                console.log(77777777777);
+                this.$nextTick(() => {
+                    this.$refs.block.gettop_exchanges();
+                });
+            } else if (this.key === '1') {
+                this.$refs.address.getLabels();
+                this.$refs.address.geteth_balance();
+                this.$refs.address.getdaily_activities();
+                this.$refs.address.getday_activities();
+                this.$refs.address.gethour_activities();
+                this.$refs.address.gettoken_balances();
+            } else if (this.key === '2') {
+                this.$nextTick(() => {
+                    this.$refs.tx.getin_eth();
+                    this.$refs.tx.getout_eth();
+                    this.$refs.tx.gettop_labels();
+                });
             }
         }
     }
@@ -80,7 +125,7 @@ export default {
                 <!-- <div>退出登录</div> -->
             </div>
         </div>
-        <!-- <div class="home-tab">
+        <div v-if="show" class="home-tab">
             <div class="right">
                 <a-tabs default-active-key="1" style="color: white; width: 100%" @change="callback">
                     <a-tab-pane key="1" tab="地址概览">
@@ -92,15 +137,17 @@ export default {
                     ></a-tab-pane>
                 </a-tabs>
             </div>
-        </div> -->
-        <div class="home-tab">
+        </div>
+        <div v-if="!show" class="home-tab">
             <!-- <div class="left"></div> -->
             <div class="right">
-                <a-tabs default-active-key="5" style="color: white; width: 100%" @change="callback">
+                <a-tabs default-active-key="3" style="color: white; width: 100%" @change="callback">
                     <a-tab-pane key="3" tab="基本信息">
                         <TokenInfo ref="tokeninfo" :inputName="value"></TokenInfo
                     ></a-tab-pane>
-                    <a-tab-pane key="4" tab="重要资讯"> <TX></TX></a-tab-pane>
+                    <a-tab-pane key="4" tab="大额交易">
+                        <Block ref="block" :inputName="value"></Block
+                    ></a-tab-pane>
                     <a-tab-pane key="5" tab="市场持仓">
                         <HoldInfo ref="holdinfo" :inputName="value"></HoldInfo
                     ></a-tab-pane>
