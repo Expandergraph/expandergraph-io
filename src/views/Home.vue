@@ -21,15 +21,19 @@ export default {
 
     methods: {
         onSearch(value) {
-            this.$refs.address.getLabels();
-            this.$refs.address.geteth_balance();
-            this.$refs.address.getdaily_activities();
-            this.$refs.address.getday_activities();
-            this.$refs.address.gethour_activities();
-            this.$refs.address.gettoken_balances();
-            this.$refs.tx.getin_eth();
-            this.$refs.tx.getout_eth();
-            this.$refs.tx.gettop_labels();
+            // this.$refs.address.getLabels();
+            // this.$refs.address.geteth_balance();
+            // this.$refs.address.getdaily_activities();
+            // this.$refs.address.getday_activities();
+            // this.$refs.address.gethour_activities();
+            // this.$refs.address.gettoken_balances();
+            // this.$refs.tx.getin_eth();
+            // this.$refs.tx.getout_eth();
+            // this.$refs.tx.gettop_labels();
+            this.$refs.tokeninfo.getexchange_supply_ratio();
+            this.$refs.tokeninfo.gettxs_num();
+            this.$refs.tokeninfo.getvolume_on_exchanges();
+            this.$refs.tokeninfo.gettop_exchanges();
 
             this.show = !this.show;
         },
@@ -47,7 +51,7 @@ export default {
             <img src="../assets/img/LOGO.png" alt="" />
         </div>
         <div class="home-query">
-            <div class="left">我的钱包</div>
+            <div class="left"></div>
             <div class="right">
                 <a-input-search
                     v-model="value"
@@ -61,8 +65,7 @@ export default {
                 <!-- <div>退出登录</div> -->
             </div>
         </div>
-        <div class="home-tab">
-            <!-- <div class="left" style="color: red">1231231231231231231</div> -->
+        <!-- <div class="home-tab">
             <div class="right">
                 <a-tabs default-active-key="1" style="color: white; width: 100%" @change="callback">
                     <a-tab-pane key="1" tab="地址概览">
@@ -74,21 +77,19 @@ export default {
                     ></a-tab-pane>
                 </a-tabs>
             </div>
-        </div>
-        <!-- <div class="home-tab">
-            <div class="left"></div>
+        </div> -->
+        <div class="home-tab">
+            <!-- <div class="left"></div> -->
             <div class="right">
-                <a-tabs
-                    default-active-key="5"
-                    style="color: white; width: 1700px"
-                    @change="callback"
-                >
-                    <a-tab-pane key="3" tab="基本信息"> <TokenInfo></TokenInfo></a-tab-pane>
+                <a-tabs default-active-key="3" style="color: white; width: 100%" @change="callback">
+                    <a-tab-pane key="3" tab="基本信息">
+                        <TokenInfo ref="tokeninfo" :inputName="value"></TokenInfo
+                    ></a-tab-pane>
                     <a-tab-pane key="4" tab="重要资讯"> <TX></TX></a-tab-pane>
                     <a-tab-pane key="5" tab="市场持仓"> <HoldInfo></HoldInfo></a-tab-pane>
                 </a-tabs>
             </div>
-        </div> -->
+        </div>
         <div class="home-content">
             <div class="left"></div>
             <div class="right"></div>

@@ -21,5 +21,17 @@ export const out_eth = (address) => get(`/address/${address}/out_eth`)
 export const top_labels = (num_of_rows,offset) => get(`/top_labels/${num_of_rows}/${offset}`)
 
 
+// 代币
+
+export const exchange_supply_ratio = (token) => get(`/token/${token}/exchange_supply_ratio`)
+
+export const txs_num = (token) => get(`/token/${token}/txs_num`)
+
+export const volume_on_exchanges = (token) => get(`/token/${token}/volume_on_exchanges`)
+
+export const top_exchanges = (token) => get(`/token/${token}/top_exchanges`)
+
+
+
 
 

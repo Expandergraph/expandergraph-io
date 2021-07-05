@@ -1,60 +1,34 @@
 <script>
+import { exchange_supply_ratio, txs_num, volume_on_exchanges, top_exchanges } from '../request/api';
 const columns = [
     {
-        title: '转账地址',
-        dataIndex: 'adress'
+        title: '交易所',
+        dataIndex: 'exchange'
     },
     {
-        title: '交易数',
-        scopedSlots: { customRender: 'address' }
+        title: '余额',
+        dataIndex: 'balance'
     },
     {
-        title: 'ETH交易总量',
-        scopedSlots: { customRender: 'address' }
+        title: '变化量',
+        dataIndex: 'change'
     },
     {
-        title: 'ETH转出总量',
-        scopedSlots: { customRender: 'address' }
-    },
-    {
-        title: 'ETH转入总量',
-        scopedSlots: { customRender: 'address' }
-    },
-    {
-        title: '总交易数',
-        scopedSlots: { customRender: 'address' }
-    },
-    {
-        title: '转入token交易数',
-        scopedSlots: { customRender: 'address' }
-    },
-    {
-        title: '转出token交易数',
-        scopedSlots: { customRender: 'address' }
+        title: '首次交易时间',
+
+        scopedSlots: { customRender: 'first in' }
     }
 ];
-const dataList = [
-    {
-        address: 12
-    },
-    {
-        address: 12
-    },
-    {
-        address: 12
-    },
-    {
-        address: 12
-    },
-    {
-        address: 12
-    }
-];
+const dataList = [];
 export default {
+    props: {
+        inputName: ''
+    },
     data() {
         return {
             columns,
-            dataList
+            dataList,
+            ratio: 0
         };
     },
     mounted() {
@@ -64,6 +38,36 @@ export default {
         });
     },
     methods: {
+        gettop_exchanges() {
+            top_exchanges(this.inputName).then((res) => {
+                this.dataList = eval(res.data);
+            });
+        },
+        getvolume_on_exchanges() {
+            volume_on_exchanges(this.inputName).then((res) => {
+                console.log(res.data);
+            });
+        },
+        gettxs_num() {
+            txs_num(this.inputName).then((res) => {
+                // console.log(res);
+            });
+        },
+        getexchange_supply_ratio() {
+            exchange_supply_ratio(this.inputName).then((res) => {
+                this.ratio = res.data.ratio * 100;
+            });
+        },
+        rowClassName(record, index) {
+            let className1 = 'c1';
+            let className2 = 'c2';
+
+            if (index % 2 === 1) {
+                return className1;
+            } else {
+                return className2;
+            }
+        },
         drawLineChart(id) {
             let myChart = this.$echarts.init(document.getElementById(id));
 
@@ -71,7 +75,7 @@ export default {
                 // 基于准备好的dom，初始化echarts实例
                 let option = {
                     title: {
-                        text: '交易数：交易所和交易人',
+                        // text: '交易数：交易所和交易人',
                         textStyle: {
                             fontWeight: 'normal',
                             color: '#A3FFFC' // 标题颜色
@@ -143,7 +147,7 @@ export default {
                         }
                     },
 
-                    color: ['#5A77F8', '#3E9397', '#FF4F3A', '#2DBB87', '#FD323A'],
+                    color: ['#5A77F8', '#3E9397', '#FF4F3A', '#1C55C8', '#FD323A'],
 
                     tooltip: {
                         trigger: 'axis'
@@ -163,7 +167,7 @@ export default {
                                 show: false
                             },
 
-                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                            data: ['1', '2', '3', '4']
                         }
                     ],
                     yAxis: [
@@ -185,32 +189,32 @@ export default {
                             name: 'Uniswap',
                             type: 'line',
                             stack: '总量',
-                            data: [3210, 3322, 3011, 3324, 1110, 3310, 320]
+                            data: [3210, 3322, 3011, 3324, 1110]
                         },
                         {
                             name: 'MXC',
                             type: 'line',
                             stack: '总量',
-                            data: [121, 2121, 9011, 934, 12790, 1330, 1320]
+                            data: [121, 2121, 9011, 1330, 1320]
                         },
                         {
                             name: 'Gate.io',
                             type: 'line',
                             stack: '总量',
-                            data: [820, 932, 9021, 934, 12970, 1330, 61320]
+                            data: [820, 932, 9021, 934, 12970]
                         },
 
                         {
                             name: 'Binance',
                             type: 'line',
                             stack: '总量',
-                            data: [820, 9132, 901, 934, 1290, 1330, 11320]
+                            data: [820, 9132, 901, 1290, 11320]
                         },
                         {
                             name: 'Other',
                             type: 'line',
                             stack: '总量',
-                            data: [820, 932, 9011, 934, 1290, 1330, 12320]
+                            data: [820, 932, 1290, 1330, 12320]
                         }
                     ]
                 };
@@ -227,14 +231,16 @@ export default {
         <div class="top">
             <div class="left">
                 <div>流通比</div>
-                <div>0.67%</div>
+                <div>{{ ratio }}%</div>
             </div>
             <div class="right">
+                <div style="margin-top: 10px; margin-left: 10px">交易数：交易所和交易人</div>
                 <div id="chartLine1" class="line-wrap" style="width: 100%; height: 330px"></div>
             </div>
         </div>
         <div class="bottom">
             <div class="left">
+                <div style="margin-top: 10px; margin-left: 10px">各交易所交易量（最近60天）</div>
                 <div id="chartLine2" class="line-wrap" style="width: 100%; height: 450px"></div>
             </div>
             <div class="right">
@@ -243,9 +249,10 @@ export default {
                     :data-source="dataList"
                     :rowClassName="rowClassName"
                     :pagination="false"
+                    style="width: 95%; margin: 0 auto; margin-top: 20px"
                 >
-                    <div slot="address" slot-scope="text, record">
-                        <a-progress :percent="30" size="small" strokeColor="#52BEDD" />
+                    <div slot="first in" slot-scope="text, record">
+                        {{ text['first in'] }} min ago
                     </div>
                 </a-table>
             </div>
@@ -258,12 +265,14 @@ export default {
 <style lang="scss" scoped>
 .info {
     .top {
-        width: 1650px;
+        width: 97%;
         height: 350px;
         display: flex;
+        margin: 0 auto;
+
         justify-content: space-between;
         .left {
-            width: 400px;
+            width: 38%;
             height: 340px;
             background-color: #001a2c;
             div {
@@ -276,14 +285,16 @@ export default {
             }
         }
         .right {
-            width: 1200px;
+            width: 60%;
             height: 340px;
             background-color: #001a2c;
         }
     }
     .bottom {
-        width: 1650px;
+        width: 97%;
         height: 450px;
+        margin: 0 auto;
+
         display: flex;
         justify-content: space-between;
         .left,
