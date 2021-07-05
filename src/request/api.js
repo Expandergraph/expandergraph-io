@@ -13,3 +13,10 @@ export const hour_activities = (address) => get(`/address/${address}/hour_activi
 
 export const token_balances = (address) => get(`/address/${address}/token_balances`)
 
+export const in_eth = (address) => get(`/address/${address}/in_eth`)
+
+
+export const out_eth = (address) => get(`/address/${address}/out_eth`)
+
+
+

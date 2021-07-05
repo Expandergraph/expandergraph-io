@@ -1,4 +1,5 @@
 <script>
+import { out_eth, in_eth } from '../request/api';
 const columns = [
     {
         title: '转账地址',
@@ -52,34 +53,22 @@ const dataList = [
 ];
 
 export default {
+    props: {
+        inputName: ''
+    },
     data() {
         return {
             chartPie: null,
-            total: 1000,
             dataList,
             columns,
-            list: [
-                {
-                    value: 100,
-                    name: 'Uniswap'
-                },
-                {
-                    value: 10,
-                    name: 'OKEx'
-                },
-                {
-                    value: 80,
-                    name: 'Sushiswap'
-                },
-                {
-                    value: 80,
-                    name: 'Huobi'
-                },
-                {
-                    value: 120,
-                    name: 'Binance'
-                }
-            ]
+            exinName: [],
+            exinNum: [],
+            exoutName: [],
+            exoutNum: [],
+            list: [],
+            list2: [],
+            inTotal: 0,
+            outTotal: 0
         };
     },
     mounted() {
@@ -89,12 +78,69 @@ export default {
         });
     },
     methods: {
+        getout_eth() {
+            out_eth(this.inputName).then((res) => {
+                let keyMap = {
+                    // id: "value",
+                    exchange: 'name',
+                    pct: 'value'
+                };
+                this.exoutName = [];
+                for (let m = 0; m < res.data.length; m++) {
+                    let obj = res.data[m];
+                    // eslint-disable-next-line guard-for-in
+                    for (let key in obj) {
+                        let newKey = keyMap[key];
+                        if (newKey) {
+                            obj[newKey] = obj[key];
+                            delete obj[key];
+                        }
+                    }
+                    this.exoutName.push(res.data[m].name);
+                }
+                this.outTotal = 0;
+                for (let k = 0; k < res.data.length; k++) {
+                    this.outTotal += res.data[k].value;
+                }
+                this.list = res.data;
+                this.drawPieChart('chartPie1');
+            });
+        },
+        getin_eth() {
+            in_eth(this.inputName).then((res) => {
+                let keyMap = {
+                    // id: "value",
+                    exchange: 'name',
+                    pct: 'value'
+                };
+                this.exinName = [];
+                for (let m = 0; m < res.data.length; m++) {
+                    let obj = res.data[m];
+                    // eslint-disable-next-line guard-for-in
+                    for (let key in obj) {
+                        let newKey = keyMap[key];
+                        if (newKey) {
+                            obj[newKey] = obj[key];
+                            delete obj[key];
+                        }
+                    }
+                    this.exinName.push(res.data[m].name);
+                }
+                this.inTotal = 0;
+                for (let k = 0; k < res.data.length; k++) {
+                    this.inTotal += res.data[k].value;
+                }
+
+                this.list2 = res.data;
+                this.drawPieChart('chartPie2');
+            });
+        },
         drawPieChart(id) {
             if (id === 'chartPie1') {
                 this.chartPie = this.$echarts.init(document.getElementById(id), 'macarons');
                 let option = {
                     title: {
-                        text: 'ETH转入',
+                        text: 'ETH转出',
                         x: '50px',
                         y: '30px',
                         textStyle: {
@@ -106,7 +152,7 @@ export default {
                         formatter: '{a} <br/>{b} : {c} ({d}%)'
                     },
                     legend: {
-                        data: ['Uniswap', 'OKEx', 'Binance', 'Huobi', 'Sushiswap'],
+                        data: this.exoutName,
                         x: '50px',
                         y: '100px',
                         orient: 'vertical',
@@ -123,12 +169,14 @@ export default {
                             let tarValue = 0;
                             for (let i = 0, l = list.length; i < l; i++) {
                                 total += list[i].value;
+
                                 if (list[i].name === name) {
                                     tarValue = list[i].value;
                                 }
                             }
+
                             let p = ((tarValue / total) * 100).toFixed(2);
-                            return name + p + '%';
+                            return name + ' ' + ' ' + p + '%';
                         }
                     },
                     series: [
@@ -145,7 +193,7 @@ export default {
                                     position: 'center',
                                     color: '#4c4a4a',
                                     formatter:
-                                        '{total|' + this.total + '}' + '\n\r' + '{active|总量}',
+                                        '{total|' + this.outTotal + '}' + '\n\r' + '{active|总量}',
                                     rich: {
                                         total: {
                                             fontSize: 35,
@@ -175,7 +223,7 @@ export default {
                 this.chartPie = this.$echarts.init(document.getElementById(id), 'macarons');
                 let option = {
                     title: {
-                        text: 'ETH转出',
+                        text: 'ETH转入',
                         x: '50px',
                         y: '30px',
                         textStyle: {
@@ -187,7 +235,7 @@ export default {
                         formatter: '{a} <br/>{b} : {c} ({d}%)'
                     },
                     legend: {
-                        data: ['Uniswap', 'OKEx', 'Binance', 'Huobi', 'Sushiswap'],
+                        data: this.exinName,
                         x: '50px',
                         y: '100px',
                         orient: 'vertical',
@@ -227,7 +275,7 @@ export default {
                                     position: 'center',
                                     color: '#4c4a4a',
                                     formatter:
-                                        '{total|' + this.total + '}' + '\n\r' + '{active|总量}',
+                                        '{total|' + this.inTotal + '}' + '\n\r' + '{active|总量}',
                                     rich: {
                                         total: {
                                             fontSize: 35,
@@ -248,7 +296,7 @@ export default {
                                 }
                             },
 
-                            data: this.list
+                            data: this.list2
                         }
                     ]
                 };
@@ -286,6 +334,7 @@ export default {
                 :data-source="dataList"
                 :rowClassName="rowClassName"
                 :pagination="false"
+                style="width: 95%; margin: 0 auto"
             >
                 <div slot="address" slot-scope="text, record">
                     <a-progress :percent="30" size="small" strokeColor="#52BEDD" />
@@ -299,24 +348,28 @@ export default {
 
 <style lang="scss" scoped>
 .tx {
+    width: 1700px;
     height: 100%;
+    margin: 0 auto;
     &-top {
         width: 1700px;
         display: flex;
         justify-content: space-between;
         .left {
-            width: 820px;
+            width: 49%;
+
             height: 400px;
             background-color: #001a2c;
         }
         .right {
-            width: 820px;
+            width: 49%;
+
             height: 400px;
             background-color: #001a2c;
         }
     }
     &-bottom {
-        width: 1700px;
+        width: 100%;
         height: 500px;
         background-color: #001a2c;
         margin-top: 20px;

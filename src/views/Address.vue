@@ -50,7 +50,6 @@ export default {
         },
         gettoken_balances() {
             token_balances(this.inputName).then((res) => {
-                console.log(res);
                 this.dataList = res.data;
             });
         },
@@ -88,9 +87,7 @@ export default {
         },
         geteth_balance() {
             eth_balance(this.inputName).then((res) => {
-                console.log(typeof res.data);
                 this.eth_balance = res.data['balance'];
-                console.log(this.eth_balance);
             });
         },
         drawLine(id) {

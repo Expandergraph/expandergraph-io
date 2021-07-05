@@ -27,6 +27,8 @@ export default {
             this.$refs.address.getday_activities();
             this.$refs.address.gethour_activities();
             this.$refs.address.gettoken_balances();
+            this.$refs.tx.getin_eth();
+            this.$refs.tx.getout_eth();
 
             this.show = !this.show;
         },
@@ -59,14 +61,16 @@ export default {
             </div>
         </div>
         <div class="home-tab">
-            <div class="left"></div>
+            <!-- <div class="left" style="color: red">1231231231231231231</div> -->
             <div class="right">
                 <a-tabs default-active-key="1" style="color: white; width: 100%" @change="callback">
                     <a-tab-pane key="1" tab="地址概览">
                         <Address ref="address" :inputName="value"></Address
                     ></a-tab-pane>
 
-                    <a-tab-pane key="2" tab="交易详情"> <TX></TX></a-tab-pane>
+                    <a-tab-pane key="2" tab="交易详情">
+                        <TX ref="tx" :inputName="value"></TX
+                    ></a-tab-pane>
                 </a-tabs>
             </div>
         </div>
@@ -147,7 +151,8 @@ export default {
         border-bottom: 1px solid #133752;
         display: flex;
         .left {
-            min-width: 180px;
+            width: 10%;
+
             height: 100%;
             background-color: white;
             border-right: 1px solid #133752;
