@@ -1,6 +1,6 @@
 const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
 
-const productionPath = '/yourProjectPath';
+const productionPath = './';
 module.exports = {
     publicPath: IS_PROD ? productionPath : '/',
     assetsDir: 'static',
