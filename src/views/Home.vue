@@ -20,7 +20,47 @@ export default {
             key: ''
         };
     },
-    created() {},
+    created() {
+        this.value = this.$route.query.value;
+        if (this.value.length >= 40) {
+            this.show = true;
+            this.key = '1';
+        } else {
+            this.show = false;
+            this.key = '3';
+        }
+        if (this.key === '3') {
+            this.$nextTick(() => {
+                this.$refs.tokeninfo.gettop_exchanges();
+
+                this.$refs.tokeninfo.getexchange_supply_ratio();
+                this.$refs.tokeninfo.gettxs_num();
+                this.$refs.tokeninfo.getvolume_on_exchanges();
+            });
+        } else if (this.key === '5') {
+            this.$nextTick(() => {
+                this.$refs.holdinfo.getseniority_distribution();
+                this.$refs.holdinfo.getnum_unique_addresses();
+            });
+        } else if (this.key === '4') {
+            this.$nextTick(() => {
+                this.$refs.block.gettop_exchanges();
+            });
+        } else if (this.key === '1') {
+            this.$refs.address.getLabels();
+            this.$refs.address.geteth_balance();
+            this.$refs.address.getdaily_activities();
+            this.$refs.address.getday_activities();
+            this.$refs.address.gethour_activities();
+            this.$refs.address.gettoken_balances();
+        } else if (this.key === '2') {
+            this.$nextTick(() => {
+                this.$refs.tx.getin_eth();
+                this.$refs.tx.getout_eth();
+                this.$refs.tx.gettop_labels();
+            });
+        }
+    },
 
     methods: {
         onSearch(value) {
@@ -106,9 +146,17 @@ export default {
 <template>
     <div class="home">
         <div class="home-header">
-            <img src="../assets/img/LOGO.png" alt="" />
+            <img
+                src="../assets/img/LOGO.png"
+                alt=""
+                @click="
+                    () => {
+                        this.$router.go(-1);
+                    }
+                "
+            />
         </div>
-        <div class="home-query">
+        <!-- <div class="home-query">
             <div class="left"></div>
             <div class="right">
                 <a-input-search
@@ -118,11 +166,11 @@ export default {
                     style="width: 660px"
                     @search="onSearch"
                 />
-                <!-- <div>帮助中心</div> -->
-                <!-- <div>我的钱包</div> -->
-                <!-- <div>退出登录</div> -->
+                <div>帮助中心</div>
+                <div>我的钱包</div>
+                <div>退出登录</div>
             </div>
-        </div>
+        </div> -->
         <div v-if="show" class="home-tab">
             <div class="right">
                 <a-tabs default-active-key="1" style="color: white; width: 100%" @change="callback">
@@ -175,6 +223,9 @@ export default {
         img {
             width: 160px;
             height: 40px;
+        }
+        img:hover {
+            cursor: pointer;
         }
     }
     &-query {

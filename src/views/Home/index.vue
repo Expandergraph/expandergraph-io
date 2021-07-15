@@ -2,13 +2,28 @@
 const Web3 = require('../../js/web3');
 export default {
     data() {
-        return {};
+        return {
+            value: '',
+            show: false
+        };
     },
     methods: {
         onclick() {
             Web3.default.Init((res) => {
                 console.log(res);
             });
+        },
+        onSearch() {
+            this.$router.push({
+                path: '/home',
+
+                query: {
+                    value: this.value
+                }
+            });
+        },
+        ontry() {
+            this.show = !this.show;
         }
     }
 };
@@ -33,7 +48,16 @@ export default {
                 基于区块链建立数据共享激励机制，<br />
                 搭建去中心化的数据交易市场。
             </div>
-            <div class="index-btn">立即试用</div>
+            <div v-if="!show" class="index-btn" @click="ontry">立即试用</div>
+            <div v-if="show" style="width: 100%; text-align: center; padding-top: 40px">
+                <a-input-search
+                    v-model="value"
+                    placeholder="请输入地址/代币名称进行搜索"
+                    enter-button
+                    style="width: 660px"
+                    @search="onSearch"
+                />
+            </div>
         </div>
         <div class="index-content">
             <div class="top">
@@ -254,10 +278,25 @@ export default {
                 line-height: 40px;
                 margin-right: 120px;
             }
-            .email{
+            .email {
                 line-height: 40px;
             }
         }
+    }
+    /deep/.ant-input-group .ant-input {
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+        background-color: #162e46;
+        border-color: #162e46;
+        color: white;
+    }
+    /deep/.ant-input-group-addon .ant-input-search-button {
+        border-top-right-radius: 100px;
+        border-bottom-right-radius: 100px;
+        background-color: rgb(66, 137, 242);
+    }
+    /deep/.ant-input-group-addon {
+        background-color: transparent;
     }
 }
 </style>
