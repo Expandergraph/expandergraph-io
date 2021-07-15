@@ -6,9 +6,9 @@ export default {
     },
     methods: {
         onclick() {
-            Web3.default.Init(res=>{
+            Web3.default.Init((res) => {
                 console.log(res);
-            })
+            });
         }
     }
 };
@@ -86,7 +86,20 @@ export default {
         <div class="index-partner" style="text-align: center">
             <img src="../../assets/img/home4.png" alt="" style="width: 85%; margin-top: 20px" />
         </div>
-        <div class="index-footer"></div>
+        <div class="index-footer">
+            <div class="left"></div>
+            <div class="right">
+                <div class="con">
+                    <div class="title">关于我们</div>
+                    <a href="https://github.com/yahtoo" target="_blank">Github</a> <br />
+                    <a href="https://www.overleaf.com/project/60be90035f8d165c0ad1f25f">白皮书</a>
+                </div>
+                <div class="email">
+                    <div class="title">联系我们</div>
+                    <div>电子邮件：daqingchong0809@163.com</div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -219,6 +232,32 @@ export default {
         height: 300px;
         width: 100%;
         background-color: #001421;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 40px;
+        padding-right: 40px;
+        .left {
+            width: 15%;
+            height: 100px;
+            background-image: url('../../assets/img/LOGO.png');
+            background-size: 90% 90%;
+            background-repeat: no-repeat;
+        }
+        .right {
+            width: 60%;
+            height: 150px;
+            color: white;
+            display: flex;
+            text-align: left;
+            .con {
+                line-height: 40px;
+                margin-right: 120px;
+            }
+            .email{
+                line-height: 40px;
+            }
+        }
     }
 }
 </style>
