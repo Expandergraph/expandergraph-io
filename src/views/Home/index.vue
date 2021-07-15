@@ -1,9 +1,16 @@
 <script>
+const Web3 = require('../../js/web3');
 export default {
     data() {
         return {};
     },
-    methods: {}
+    methods: {
+        onclick() {
+            Web3.default.Init(res=>{
+                console.log(res);
+            })
+        }
+    }
 };
 </script>
 
@@ -15,7 +22,7 @@ export default {
                 <div class="right">
                     <div>最新新闻</div>
                     <div>关于我们</div>
-                    <div class="wallet">钱包登录</div>
+                    <div class="wallet" @click="onclick">钱包登录</div>
                     <div class="account">账号登录</div>
                 </div>
             </div>
@@ -62,6 +69,24 @@ export default {
                 </div>
             </div>
         </div>
+        <div class="index-mark">
+            <div class="title">受到加密领域最聪明团队的喜爱</div>
+            <div class="content">
+                “ExpanderGraph是我进行加密分析的首选工具，因为它独特地将链上数据与丰富的钱包数据库相结合。简而言之，我不会在没有事先咨询的情况下做出投资决定。”
+            </div>
+            <div class="name">-某资本投资主管</div>
+
+            <div class="content">
+                “ExpanderGraph
+                绝对是史诗级的！一个不可或缺的工具，用于识别哪些代币正在累积，哪些正在分发。没有它我不再购买或持有加密资产。但警告，ExpanderGraph
+                可能会上瘾！”
+            </div>
+            <div class="name">-马可·L</div>
+        </div>
+        <div class="index-partner" style="text-align: center">
+            <img src="../../assets/img/home4.png" alt="" style="width: 85%; margin-top: 20px" />
+        </div>
+        <div class="index-footer"></div>
     </div>
 </template>
 
@@ -159,6 +184,41 @@ export default {
                 }
             }
         }
+    }
+    &-mark {
+        height: 400px;
+        width: 100%;
+        background-color: #001421;
+        margin-top: 20px;
+        color: white;
+        .title {
+            width: 600px;
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0 auto;
+            padding-top: 50px;
+            text-align: center;
+        }
+        .content {
+            width: 600px;
+            margin: 0 auto;
+            margin-top: 40px;
+        }
+        .name {
+            width: 600px;
+            margin: 0 auto;
+            text-align: right;
+        }
+    }
+    &-partner {
+        height: 300px;
+        width: 100%;
+        background-color: #fff;
+    }
+    &-footer {
+        height: 300px;
+        width: 100%;
+        background-color: #001421;
     }
 }
 </style>

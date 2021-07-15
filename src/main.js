@@ -9,7 +9,8 @@ import "./assets/css/reset.css";
 // 外部引入
 import "ant-design-vue/dist/antd.css";
 import * as echarts from 'echarts'
-
+import Web3 from 'web3'
+Vue.prototype.Web3 = Web3
 Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false;
