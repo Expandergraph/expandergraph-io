@@ -48,7 +48,6 @@ export default {
             });
         } else if (this.key === '1') {
             this.$nextTick(() => {
-                console.log(9999999);
                 this.$refs.address.getLabels();
                 this.$refs.address.geteth_balance();
                 this.$refs.address.getdaily_activities();

@@ -311,10 +311,10 @@ export default {
     <div class="tx">
         <div class="tx-top">
             <div class="left">
-                <div id="chartPie1" class="pie-wrap" style="width: 100%; height: 80%"></div>
+                <div id="chartPie1" class="pie-wrap" style="width: 80%; height: 80%"></div>
             </div>
             <div class="right">
-                <div id="chartPie2" class="pie-wrap" style="width: 100%; height: 80%"></div>
+                <div id="chartPie2" class="pie-wrap" style="width: 80%; height: 80%"></div>
             </div>
         </div>
         <div class="tx-bottom">
@@ -368,21 +368,21 @@ export default {
 
 <style lang="scss" scoped>
 .tx {
-    width: 1700px;
+    width: 100%;
     height: 100%;
     margin: 0 auto;
     &-top {
-        width: 1700px;
+        width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         .left {
-            width: 49%;
+            width: 45%;
 
             height: 400px;
             background-color: #001a2c;
         }
         .right {
-            width: 49%;
+            width: 45%;
 
             height: 400px;
             background-color: #001a2c;

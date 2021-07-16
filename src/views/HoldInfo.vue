@@ -182,10 +182,10 @@ export default {
 <template>
     <div class="hold">
         <div class="left">
-            <div id="myChart1" style="width: 800px; height: 100%; margin-top: 20px"></div>
+            <div id="myChart1" style="width: 100%; height: 100%; margin-top: 20px"></div>
         </div>
         <div class="right">
-            <div id="myChart2" style="width: 800px; height: 100%; margin-top: 20px"></div>
+            <div id="myChart2" style="width: 100%; height: 100%; margin-top: 20px"></div>
         </div>
     </div>
 </template>
@@ -194,14 +194,14 @@ export default {
 
 <style lang="scss" scoped>
 .hold {
-    width: 1650px;
+    width: 100%;
     height: 500px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     .left,
     .right {
-        width: 800px;
+        width: 45%;
         height: 100%;
         background-color: #001a2c;
     }
