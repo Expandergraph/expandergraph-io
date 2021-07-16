@@ -47,12 +47,15 @@ export default {
                 this.$refs.block.gettop_exchanges();
             });
         } else if (this.key === '1') {
-            this.$refs.address.getLabels();
-            this.$refs.address.geteth_balance();
-            this.$refs.address.getdaily_activities();
-            this.$refs.address.getday_activities();
-            this.$refs.address.gethour_activities();
-            this.$refs.address.gettoken_balances();
+            this.$nextTick(() => {
+                console.log(9999999);
+                this.$refs.address.getLabels();
+                this.$refs.address.geteth_balance();
+                this.$refs.address.getdaily_activities();
+                this.$refs.address.getday_activities();
+                this.$refs.address.gethour_activities();
+                this.$refs.address.gettoken_balances();
+            });
         } else if (this.key === '2') {
             this.$nextTick(() => {
                 this.$refs.tx.getin_eth();
@@ -89,12 +92,14 @@ export default {
                     this.$refs.block.gettop_exchanges();
                 });
             } else if (this.key === '1') {
-                this.$refs.address.getLabels();
-                this.$refs.address.geteth_balance();
-                this.$refs.address.getdaily_activities();
-                this.$refs.address.getday_activities();
-                this.$refs.address.gethour_activities();
-                this.$refs.address.gettoken_balances();
+                this.$nextTick(() => {
+                    this.$refs.address.getLabels();
+                    this.$refs.address.geteth_balance();
+                    this.$refs.address.getdaily_activities();
+                    this.$refs.address.getday_activities();
+                    this.$refs.address.gethour_activities();
+                    this.$refs.address.gettoken_balances();
+                });
             } else if (this.key === '2') {
                 this.$nextTick(() => {
                     this.$refs.tx.getin_eth();
@@ -124,12 +129,14 @@ export default {
                     this.$refs.block.gettop_exchanges();
                 });
             } else if (this.key === '1') {
-                this.$refs.address.getLabels();
-                this.$refs.address.geteth_balance();
-                this.$refs.address.getdaily_activities();
-                this.$refs.address.getday_activities();
-                this.$refs.address.gethour_activities();
-                this.$refs.address.gettoken_balances();
+                this.$nextTick(() => {
+                    this.$refs.address.getLabels();
+                    this.$refs.address.geteth_balance();
+                    this.$refs.address.getdaily_activities();
+                    this.$refs.address.getday_activities();
+                    this.$refs.address.gethour_activities();
+                    this.$refs.address.gettoken_balances();
+                });
             } else if (this.key === '2') {
                 this.$nextTick(() => {
                     this.$refs.tx.getin_eth();
@@ -154,6 +161,13 @@ export default {
                         this.$router.go(-1);
                     }
                 "
+            />
+            <a-input-search
+                v-model="value"
+                placeholder="请输入地址/代币名称进行搜索"
+                enter-button
+                style="width: 660px"
+                @search="onSearch"
             />
         </div>
         <!-- <div class="home-query">
@@ -219,7 +233,10 @@ export default {
         border-bottom: 1px solid #133752;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         padding-left: 20px;
+        padding-right: 20px;
+
         img {
             width: 160px;
             height: 40px;
@@ -247,18 +264,6 @@ export default {
             align-items: center;
             justify-content: space-around;
             display: flex;
-            /deep/.ant-input-group .ant-input {
-                border-bottom-left-radius: 50px;
-                border-top-left-radius: 50px;
-            }
-            /deep/.ant-input-group-addon .ant-input-search-button {
-                border-top-right-radius: 100px;
-                border-bottom-right-radius: 100px;
-                background-color: rgb(66, 137, 242);
-            }
-            /deep/.ant-input-group-addon {
-                background-color: transparent;
-            }
         }
     }
     &-tab {
@@ -301,6 +306,21 @@ export default {
             // background-color: red;
             height: 700px;
         }
+    }
+    /deep/.ant-input-group .ant-input {
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+        background-color: #162e46;
+        border-color: #162e46;
+        color: white;
+    }
+    /deep/.ant-input-group-addon .ant-input-search-button {
+        border-top-right-radius: 100px;
+        border-bottom-right-radius: 100px;
+        background-color: rgb(66, 137, 242);
+    }
+    /deep/.ant-input-group-addon {
+        background-color: transparent;
     }
 }
 </style>
