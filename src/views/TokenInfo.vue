@@ -147,13 +147,13 @@ export default {
                         }
                     },
 
-                    color: ['#5A77F8', '#3E9397', '#FF4F3A', '#1C55C8', '#FD323A'],
+                    color: ['#E9C8DB', '#3E9397', '#DEB43D', '#204F5E', '#FD323A'],
 
                     tooltip: {
                         trigger: 'axis'
                     },
                     legend: {
-                        data: ['Uniswap', 'MXC', 'Binance', 'Other', 'Gate.io'],
+                        data: ['Uniswap', 'MXC', 'Binance', 'Gate.io', 'Other'],
                         textStyle: {
                             color: 'white'
                         }
