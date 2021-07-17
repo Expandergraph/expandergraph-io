@@ -120,7 +120,8 @@ export default {
                 </div>
                 <div class="email">
                     <div class="title">联系我们</div>
-                    <div>电子邮件：daqingchong0809@163.com</div>
+                    <div>Twitter：@expander_graph</div>
+                    <div>微信公众号：ExpanderGraph</div>
                 </div>
             </div>
         </div>
@@ -263,7 +264,7 @@ export default {
         padding-right: 40px;
         .left {
             width: 15%;
-            height: 100px;
+            height: 70px;
             background-image: url('../../assets/img/LOGO.png');
             background-size: 90% 90%;
             background-repeat: no-repeat;
